@@ -271,15 +271,13 @@ void VideoPlayer::removeFromPlaylist(const std::string& playlistName,
       return;
   }
 
-  std::vector<Video>::const_iterator currentVideo = getVideo(videos, videoId);
-  if (currentVideo == videos.cend()) {
+  std::vector<Video>::const_iterator video = getVideo(videos, videoId);
+  if (video == videos.cend()) {
       if (videos.empty()) {
           std::cout << "Cannot remove video from " << playlistName << ": Video does not exist" << std::endl;
           return;
       }
   }
-
-
 }
 
 void VideoPlayer::clearPlaylist(const std::string& playlistName) {
