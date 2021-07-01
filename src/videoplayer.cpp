@@ -254,6 +254,32 @@ void VideoPlayer::removeFromPlaylist(const std::string& playlistName,
       return;
   }
 
+  std::unordered_map<std::string, VideoPlaylist>::const_iterator existing = playlists.find(playlistName);
+
+  if (existing == playlists.end()) {
+      std::cout << "Cannot remove video from " << playlistName << ": Playlist does not exist" << std::endl;
+      return;
+  }
+
+
+
+  VideoPlaylist playlist = existing->second;
+  std::vector<Video> videos = playlist.getVideos();
+
+  if (videos.empty()) {
+      std::cout << "Cannot remove video from " << playlistName << ": Video does not exist" << std::endl;
+      return;
+  }
+
+  std::vector<Video>::const_iterator currentVideo = getVideo(videos, videoId);
+  if (currentVideo == videos.cend()) {
+      if (videos.empty()) {
+          std::cout << "Cannot remove video from " << playlistName << ": Video does not exist" << std::endl;
+          return;
+      }
+  }
+
+
 }
 
 void VideoPlayer::clearPlaylist(const std::string& playlistName) {
